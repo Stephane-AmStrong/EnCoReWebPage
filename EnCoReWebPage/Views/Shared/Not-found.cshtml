@@ -1,0 +1,48 @@
+﻿@{ 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--Rechercher Popup-->
+<div id="search-popup" class="search-popup">
+    <div class="close-search theme-btn"><span class="flaticon-targeting-cross"></span></div>
+    <div class="popup-inner">
+        <div class="overlay-layer"></div>
+        <div class="search-form">
+            <form method="post" action="index.html">
+                <div class="form-group">
+                    <fieldset>
+                        <input type="search" class="form-control" name="search-input" value="" placeholder="Rechercher Here" required>
+                        <input type="submit" value="Rechercher Now!" class="theme-btn">
+                    </fieldset>
+                </div>
+            </form>
+
+            <br>
+            <h3>Recent Rechercher Keywords</h3>
+            <ul class="recent-searches">
+                <li><a href="#">Finance</a></li>
+                <li><a href="#">Idea</a></li>
+                <li><a href="#">Service</a></li>
+                <li><a href="#">Growth</a></li>
+                <li><a href="#">Plan</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</div>
+
+<!--Error Section-->
+<section class="error-section">
+    <div class="auto-container">
+        <div class="content">
+            <div class="big-text">
+                <span class="num">404</span>
+                <div class="med-text">Not Found</div>
+            </div>
+            <h2>Something went wrong, try later</h2>
+            <div class="text">You may have mistyped the address or the page <br>may have moved.</div>
+            <div class="link-box"><a href="index.html" class="theme-btn btn-style-one"><span class="btn-title">Back to Home</span></a></div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,41 @@
+﻿@model List<EnCoReWebPage.App_Classes.ArticlesVM>
+
+<thead>
+    <tr>
+        <th>Date</th>
+        <th>Image</th>
+        <th>Titre</th>
+        <th>Auteur</th>
+        <th>Actions</th>
+    </tr>
+</thead>
+<tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Parution</td>
+            <td>
+                <img src="@Url.Content(item.Image)" width="150" />
+            </td>
+            <td>@item.Titre</td>
+            <td>@item.Auteur</td>
+            <td>
+
+                @if ((bool)Session["RoleValider_Commentaire"] && !item.Valider)
+                {
+                    <a href="#" onclick="AutorizeOrDelete('@item.Id','Valider')">Valider</a> <span> | </span>
+                }
+
+                <a href="#" onclick="OpenPopup('@item.Id')">Modifier</a> <span> | </span>
+                <a href="#" onclick="DeletePopup('@item.Id')">Supprimer</a> <span> | </span>
+
+                @Html.ActionLink("Commentaires", "ShowComments", "Articles", new { idArticle = item.Id }, null)
+
+
+                @*@Html.ActionLink("Supppppprimer", "Delete", null, new { id = @item.Id }, new { data_toggle = "modal", data_target = "#modal-lg" })*@
+            </td>
+        </tr>
+    }
+</tbody>
+
+

@@ -1,0 +1,103 @@
+﻿@{ 
+    EnCoReWebPage.Entities.DB_BlogEnCoReEntities db = new EnCoReWebPage.Entities.DB_BlogEnCoReEntities();
+    System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("fr-FR");
+}
+
+<!--Sidebar Side-->
+<div class="sidebar-side col-lg-4 col-md-12 col-sm-12">
+    <aside class="sidebar">
+        <div class="bg-layer">
+            <div class="image-layer" style="background-image:url(/images/background/sidebar-bg-image.jpg);"></div>
+        </div>
+
+        <div class="sidebar-widget search-box">
+            <div class="widget-inner">
+                <div class="sidebar-title">
+                    <h4>Rechercher</h4>
+                </div>
+                <div>
+                    <div class="form-group">
+                        <input type="search" name="rech" id="rech" value="" placeholder="mot clé..." required="">
+                        <button type="button" onclick="Refresh()"><span class="icon flaticon-magnifying-glass"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar-widget cat-widget">
+            <div class="widget-content">
+                <div class="sidebar-title">
+                    <h4>Catégories</h4>
+                </div>
+                <ul class="cat-links clearfix">
+                    @foreach (var item in db.Categories.OrderBy(p => p.Libelle).ToList())
+                    {
+                        <li id="@item.Id"><a href="#" onclick="Refresh('@item.Id', '@item.Libelle')">@item.Libelle</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <!--Posts-->
+        <div class="sidebar-widget recent-posts">
+            <div class="widget-inner">
+                <div class="sidebar-title">
+                    <h4>Les plus populaires</h4>
+                </div>
+
+                <div class="recent-posts-box">
+                    @foreach (var item in db.Articles.OrderByDescending(p => p.Commentaires.Count).ToList().Take(2))
+                    {
+                        <div class="post">
+                            <div class="inner">
+                                <figure class="post-thumb">
+                                    <img src="@Url.Content(item.Image)" alt="@item.Titre">
+                                    <a href="#" class="overlink"><span class="icon flaticon-zoom-in"></span></a>
+                                </figure>
+                                <div class="post-date">@item.Parution.ToString("dd.MM.yyyy", culture)</div>
+                                <h5 class="title"><a href="~/Home/DetailArticle/@item.Id">@item.Titre</a></h5>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!--Tags-->
+        <div class="sidebar-widget popular-tags">
+            <div class="widget-inner">
+                <div class="sidebar-title">
+                    <h4>Tags</h4>
+                </div>
+                <ul class="tags-list clearfix">
+                    @foreach (var item in db.Tags.ToList())
+                    {
+                        <li><a href="#" onclick="Refresh(null, '', '@item.Id')">@item.Libelle</a></li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+
+        <div class="sidebar-widget contact-widget">
+            <div class="widget-content">
+                <div class="sidebar-title">
+                    <h4>Subscribe Us</h4>
+                </div>
+                <div class="newsletter-box-two">
+                    <div class="image-box">
+                        <div class="image-layer" style="background-image: url(/images/background/image-13.jpg);"></div>
+                        <div class="text">Subscribe us to get latest news and events detail.</div>
+                        <form method="post" action="contact.html">
+                            <div class="form-group clearfix">
+                                <input type="email" name="email" value="" placeholder="mailid@example.com" required="">
+                                <button type="submit" class="theme-btn btn-style-one"><span class="btn-title">Subscribe Us</span></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </aside>
+</div>

@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB_BlogEnCoReModelStoreContainer" CdmEntityContainer="DB_BlogEnCoReEntities">
+    <EntitySetMapping Name="Articles">
+      <EntityTypeMapping TypeName="IsTypeOf(DB_BlogEnCoReModel.Article)">
+        <MappingFragment StoreEntitySet="Articles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Titre" ColumnName="Titre" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+          <ScalarProperty Name="Parution" ColumnName="Parution" />
+          <ScalarProperty Name="CategorieId" ColumnName="CategorieId" />
+          <ScalarProperty Name="UtilisateurId" ColumnName="UtilisateurId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ArticleTags">
+      <EntityTypeMapping TypeName="IsTypeOf(DB_BlogEnCoReModel.ArticleTag)">
+        <MappingFragment StoreEntitySet="ArticleTags">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
+          <ScalarProperty Name="TagId" ColumnName="TagId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="IsTypeOf(DB_BlogEnCoReModel.Category)">
+        <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Commentaires">
+      <EntityTypeMapping TypeName="IsTypeOf(DB_BlogEnCoReModel.Commentaire)">
+        <MappingFragment StoreEntitySet="Commentaires">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="CommentateurNomPrenoms" ColumnName="CommentateurNomPrenoms" />
+          <ScalarProperty Name="CommentateurEmail" ColumnName="CommentateurEmail" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+          <ScalarProperty Name="Autorise" ColumnName="Autorise" />
+          <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="IsTypeOf(DB_BlogEnCoReModel.Role)">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Article" ColumnName="Article" />
+          <ScalarProperty Name="Categorie" ColumnName="Categorie" />
+          <ScalarProperty Name="Role_" ColumnName="Role_" />
+          <ScalarProperty Name="Utilisateur" ColumnName="Utilisateur" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tags">
+      <EntityTypeMapping TypeName="IsTypeOf(DB_BlogEnCoReModel.Tag)">
+        <MappingFragment StoreEntitySet="Tags">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Utilisateurs">
+      <EntityTypeMapping TypeName="IsTypeOf(DB_BlogEnCoReModel.Utilisateur)">
+        <MappingFragment StoreEntitySet="Utilisateurs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Prenoms" ColumnName="Prenoms" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="PWD" ColumnName="PWD" />
+          <ScalarProperty Name="Apropos" ColumnName="Apropos" />
+          <ScalarProperty Name="Blog" ColumnName="Blog" />
+          <ScalarProperty Name="Actif" ColumnName="Actif" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="UtilisateurId" ColumnName="UtilisateurId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PasswordRequests">
+      <EntityTypeMapping TypeName="IsTypeOf(DB_BlogEnCoReModel.PasswordRequest)">
+        <MappingFragment StoreEntitySet="PasswordRequests">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+          <ScalarProperty Name="UtilisateurId" ColumnName="UtilisateurId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

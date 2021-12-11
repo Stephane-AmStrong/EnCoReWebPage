@@ -1,0 +1,435 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>@ViewBag.Title - EnCoRe</title>
+    <!-- Stylesheets -->
+    <link href="~/css/bootstrap.css" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet">
+    <!-- Responsive File -->
+    <link href="~/css/responsive.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="~/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="~/images/favicon.png" type="image/x-icon">
+    <link href="~/Content/mystyle.css" rel="stylesheet" />
+
+    <!-- balises servant à décrire le contenu partagé sur les réseaux sociaux -->
+    <meta property="og:title" content="@ViewBag.og_title" />
+    <meta property="og:image" content="@ViewBag.og_image" />
+    <meta property="og:description" content="@ViewBag.og_description" />
+    <meta property="og:url" content="@ViewBag.og_url">
+
+    <!-- Responsive Settings -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="~/js/respond.js"></script><![endif]-->
+</head>
+
+<body>
+
+    <div class="page-wrapper">
+        <!-- Preloader -->
+        <div class="preloader">
+            <div class="icon"></div>
+        </div>
+
+        <!-- Main Header -->
+        <header class="main-header header-style-one">
+            <!-- Header Top -->
+            <div class="header-top header-top-one">
+                <div class="auto-container">
+                    <div class="inner clearfix">
+                        <div class="top-left clearfix">
+                            <div class="welcome-text">
+                                <span class="flag"></span> Cotonou | République du Bénin
+                                <span class="arrow flaticon-right-arrow-angle"></span>
+                            </div>
+                            <div class="email">
+                                <a href="mailto:support@mygov.com"><span class="icon fa fa-envelope"></span>contact@encore-benin.org</a>
+                            </div>
+                        </div>
+
+                        @*<div class="mid-text"><span>Visiter le Bénin?</span> Find events, residents and more.</div>*@
+
+                        <div class="top-right clearfix">
+                            <div class="phone">
+                                <a href="tel:18001234567"><span class="icon fa fa-phone-alt"></span>Contactez-nous: +229 97 01 02 03</a>
+                            </div>
+                            @*<div class="hours">
+                                    <div class="hours-btn">Open Today: 09 to 18 <span class="arrow flaticon-down-arrow"></span></div>
+                                    <div class="hours-dropdown">
+                                        <ul>
+                                            <li><a href="#">Monday: 09 to 18</a></li>
+                                            <li><a href="#">Tuesday: 09 to 18</a></li>
+                                            <li><a href="#">Wednesday: 09 to 18</a></li>
+                                            <li><a href="#">Thursday: 09 to 18</a></li>
+                                            <li><a href="#">Friday: 09 to 18</a></li>
+                                            <li><a href="#">Saturday: 10 to 15</a></li>
+                                            <li><a href="#">Sunday: Off</a></li>
+                                        </ul>
+                                    </div>
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Header Upper -->
+            <div class="header-upper">
+                <div class="auto-container">
+                    <div class="inner-container clearfix">
+                        <!--Logo-->
+                        <div class="logo-box clearfix">
+                            <div class="logo">
+                                <a href="~/Home/Index" title="EnCoRe - ">
+                                    <img src="~/images/logo.jpeg" alt="EnCoRe - " title="EnCoRe - ">
+                                </a>
+                            </div>
+                            @*<div class="search-btn search-btn-one">
+                                    <button type="button" class="theme-btn search-toggler">
+                                        <span class="txt">Explorer</span>
+                                        <span class="icon flaticon-loupe-1"></span>
+                                    </button>
+                                </div>*@
+                        </div>
+
+                        <!--Nav-->
+                        <div class="nav-outer clearfix">
+                            <!--Mobile Navigation Toggler-->
+                            <div class="mobile-nav-toggler">
+                                <span class="icon flaticon-menu-1"></span>
+                            </div>
+
+                            <!-- Main Menu -->
+                            <nav class="main-menu navbar-expand-md navbar-light">
+                                <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
+                                    <ul class="navigation clearfix">
+
+                                        <li @*id="menuHome"*@ class="dropdown">
+                                            @Html.ActionLink("Le Mouvement", "Index", "Home")
+                                            <ul>
+                                                <li>@Html.ActionLink("Qui sommes-nous ?", "qui_sommes_nous", "Home")</li>
+                                                <li>@Html.ActionLink("Notre organigramme", "notre_organigramme", "Home")</li>
+                                                <li>@Html.ActionLink("Notre fonctionnement", "notre_fonctionnement", "Home")</li>
+                                                <li>@Html.ActionLink("Nos référents", "nos_referents", "Home")</li>
+                                            </ul>
+                                        </li>
+
+                                        <li @*id="menuBlogs"*@>
+                                            @Html.ActionLink("Notre projet", "notre_projet", "Home")
+                                        </li>
+
+                                        <li @*id="menuCommit"*@ class="dropdown">
+                                            @Html.ActionLink("S'engager", "notre_fonctionnement", "Home")
+                                            <ul>
+                                                <li>@Html.ActionLink("Événements", "CityNews", "Home")</li>
+                                                <li>@Html.ActionLink("Comités", "History", "Home")</li>
+                                                <li>@Html.ActionLink("Projets citoyens", "Portfolio1", "Home")</li>
+                                                <li>@Html.ActionLink("Atelier des idées", "Faqs", "Home")</li>
+                                                <li>@Html.ActionLink("Formation", "Faqs", "Home")</li>
+                                            </ul>
+                                        </li>
+
+                                        @*<li>
+                                            @Html.ActionLink("Actualités", "BlogGridSidebar", "Home")
+                                        </li>*@
+
+                                        <li @*id="menuBlogs"*@>
+                                            @Html.ActionLink("Nos publications", "BlogGridSidebar", "Home")
+                                        </li>
+
+                                        <li>
+                                            @Html.ActionLink("Contact", "Contact", "Home")
+                                        </li>
+                                    </ul>
+                                </div>
+                            </nav>
+                        </div>
+
+                        <!--Other Links-->
+                        <div class="other-links clearfix">
+                            <!--Language-->
+                            @*<div class="language">
+                                    <div class="lang-btn">
+                                        <span class="icon flaticon-worldwide-1"></span>
+                                        <span class="txt">English</span>
+                                        <span class="arrow fa fa-angle-down"></span>
+                                    </div>
+                                    <div class="lang-dropdown">
+                                        <ul>
+                                            <li><a href="#">German</a></li>
+                                            <li><a href="#">Italian</a></li>
+                                            <li><a href="#">Chinese</a></li>
+                                            <li><a href="#">Russian</a></li>
+                                        </ul>
+                                    </div>
+                                </div>*@
+                            <!--Social Links-->
+
+                            <div class="social-links-one">
+                                <ul class="clearfix">
+                                    <li>
+                                        <a href="#" class="has-tooltip">
+                                            <span class="fab fa-facebook-f"></span>
+                                            <div class="c-tooltip">
+                                                <div class="tooltip-inner">Facebook</div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="has-tooltip">
+                                            <span class="fab fa-twitter"></span>
+                                            <div class="c-tooltip">
+                                                <div class="tooltip-inner">Twitter</div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="has-tooltip">
+                                            <span class="fab fa-linkedin-in"></span>
+                                            <div class="c-tooltip">
+                                                <div class="tooltip-inner">Linkedin</div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End Header Upper-->
+            <!-- Sticky Header  -->
+            <div class="sticky-header">
+                <div class="auto-container clearfix">
+                    <!--Logo-->
+                    <div class="logo pull-left">
+                        <a href="~/Home/Index" title=""><img src="~/images/logo.jpeg" alt="" title=""></a>
+                    </div>
+                    <!--Right Col-->
+                    <div class="pull-right">
+                        <!-- Main Menu -->
+                        <nav class="main-menu clearfix">
+                            <!--Keep This Empty / Menu will come through Javascript-->
+                        </nav><!-- Main Menu End-->
+                    </div>
+                </div>
+            </div><!-- End Sticky Menu -->
+            <!-- Mobile Menu  -->
+            <div class="mobile-menu">
+                <div class="menu-backdrop"></div>
+                <div class="close-btn">
+                    <span class="icon flaticon-targeting-cross"></span>
+                </div>
+
+                <nav class="menu-box">
+                    <div class="nav-logo">
+                        <a href="~/Home/Index"><img src="~/images/nav-logo.png" alt="" title=""></a>
+                    </div>
+                    <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
+                    <!--Social Links-->
+                    <div class="social-links">
+                        <ul class="clearfix">
+                            <li>
+                                <a href="#"><span class="fab fa-twitter"></span></a>
+                            </li>
+                            <li>
+                                <a href="#"><span class="fab fa-facebook-square"></span></a>
+                            </li>
+                            <li>
+                                <a href="#"><span class="fab fa-pinterest-p"></span></a>
+                            </li>
+                            <li>
+                                <a href="#"><span class="fab fa-instagram"></span></a>
+                            </li>
+                            <li>
+                                <a href="#"><span class="fab fa-youtube"></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div><!-- End Mobile Menu -->
+        </header>
+        <!-- End Main Header -->
+        <!--Rechercher Popup-->
+        <div id="search-popup" class="search-popup">
+            <div class="close-search theme-btn">
+                <span class="flaticon-targeting-cross"></span>
+            </div>
+            <div class="popup-inner">
+                <div class="overlay-layer"></div>
+                <div class="search-form">
+                    <form method="post" action="~/Home/Index">
+                        <div class="form-group">
+                            <fieldset>
+                                <input type="search" class="form-control" name="search-input" value="" placeholder="Rechercher Here" required>
+                                <input type="submit" value="Rechercher Now!" class="theme-btn">
+                            </fieldset>
+                        </div>
+                    </form>
+
+                    <br>
+                    <h3>Recent Rechercher Keywords</h3>
+                    <ul class="recent-searches">
+                        <li>
+                            <a href="#">Finance</a>
+                        </li>
+                        <li>
+                            <a href="#">Idea</a>
+                        </li>
+                        <li>
+                            <a href="#">Service</a>
+                        </li>
+                        <li>
+                            <a href="#">Growth</a>
+                        </li>
+                        <li>
+                            <a href="#">Plan</a>
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+        </div>
+
+        @RenderBody()
+
+        <!-- Main Footer -->
+        <footer class="main-footer">
+
+            <!--Widgets Section-->
+            <div class="widgets-section">
+                <div class="auto-container">
+                    <div class="row clearfix">
+                        <!--Column-->
+                        <div class="column col-lg-3 col-md-6 col-sm-12">
+                            <div class="footer-widget links-widget">
+                                <div class="widget-title">
+                                    <h4>Accueil</h4>
+                                </div>
+                                <div class="widget-content">
+                                    <ul class="links">
+                                        <li>@Html.ActionLink("Le Mouvement", "Index", "Home")</li>
+                                        <li>@Html.ActionLink("Qui sommes-nous ?", "qui_sommes_nous", "Home")</li>
+                                        <li>@Html.ActionLink("Notre organigramme", "notre_organigramme", "Home")</li>
+                                        <li>@Html.ActionLink("Notre fonctionnement", "notre_fonctionnement", "Home")</li>
+                                        <li>@Html.ActionLink("Nos référents", "nos_referents", "Home")</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Column-->
+                        <div class="column col-lg-3 col-md-6 col-sm-12">
+                            <div class="footer-widget links-widget">
+                                <div class="widget-title">
+                                    <h4>Engagement</h4>
+                                </div>
+                                <div class="widget-content">
+                                    <ul class="links">
+                                        <li>@Html.ActionLink("Connexion", "Login", "Utilisateurs")</li>
+                                        <li>@Html.ActionLink("S'engager", "notre_fonctionnement", "Home")</li>
+                                        <li>@Html.ActionLink("Événements", "CityNews", "Home")</li>
+                                        <li>@Html.ActionLink("Comités", "History", "Home")</li>
+                                        <li>@Html.ActionLink("Projets citoyens", "Portfolio1", "Home")</li>
+                                        <li>@Html.ActionLink("Atelier des idées", "Faqs", "Home")</li>
+                                        <li>@Html.ActionLink("Formation", "Faqs", "Home")</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Column-->
+                        <div class="column col-lg-3 col-md-6 col-sm-12">
+                            <div class="footer-widget num-widget">
+                                <div class="widget-title">
+                                    <h4>Emergency</h4>
+                                </div>
+                                <div class="widget-content">
+                                    <ul class="num-links">
+                                        <li>
+                                            <a href="#">Police <span class="hvr-info">Call: 977</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Ambulance <span class="hvr-info">Call: 911</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Fire Brigade <span class="hvr-info">Call: 922</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Gas service <span class="hvr-info">Call: 111</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Poison centre <span class="hvr-info">Call: 101</span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Column-->
+                        <div class="column col-lg-3 col-md-6 col-sm-12">
+                            <div class="footer-widget about-widget">
+                                <div class="logo">
+                                    <a href="#"><img src="~/images/footer-logo.png" alt=""></a>
+                                </div>
+                                <div class="address">
+                                    <h5>London city govt</h5>
+                                    <div class="text">
+                                        46, The queen's walk
+                                        <br>london 5241, UK
+                                    </div>
+                                </div>
+                                <div class="address">
+                                    <h5>Opening hrs</h5>
+                                    <div class="text">10am to 6pm, Sun: Closed</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="auto-container">
+                    <div class="inner">
+                        <div class="copyright">
+                            Copyrights
+                            <a href="#">&copy; 2020 london city govt.</a> All rights reserved.
+                        </div>
+                        <ul class="social-links clearfix">
+                            <li>
+                                <a href="#"><span class="fab fa-facebook-f"></span></a>
+                            </li>
+                            <li>
+                                <a href="#"><span class="fab fa-twitter"></span></a>
+                            </li>
+                            <li>
+                                <a href="#"><span class="fab fa-linkedin-in"></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </footer>
+
+    </div>
+    <!--End pagewrapper-->
+    <!--Scroll to top-->
+    <div class="scroll-to-top scroll-to-target" data-target="html">
+        <span class="icon flaticon-up-arrow-angle"></span>
+    </div>
+
+    @Scripts.Render("~/bundles/js");
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+    <!--Google Map-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHJe2MPH8B-gLzZu5QI0Alc73nvkLuuqQ"></script>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
+
+

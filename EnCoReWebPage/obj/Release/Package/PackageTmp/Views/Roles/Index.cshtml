@@ -1,0 +1,151 @@
+﻿@model EnCoReWebPage.Entities.Role
+
+@{
+    ViewBag.Title = "Roles";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Liste des roles</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <button type="button" class="btn btn-primary" onclick="OpenPopup()">
+                            Ajouter un role
+                        </button><br /><br />
+                        <table id="example2" class="table table-bordered table-hover">
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+
+
+<div class="modal fade" id="modal-lg">
+
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="modal-xl">
+
+</div>
+
+<!-- /.modal -->
+
+
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            getRoles();
+        });
+
+        function OpenPopup(id) {
+            if (id == null) {
+                $.ajax({
+                    url: '@Url.Action("Form")',
+                    cache: false,
+                    success: function (data) {
+                        $("#modal-xl").html(data);
+                        $("#modal-xl").modal("toggle");                        
+                    }
+                })
+            } else {
+                $.ajax({
+                url: '/Roles/Form/' + id,
+                cache: false,
+                success: function (data) {
+                    $("#modal-xl").html(data);
+                    $("#modal-xl").modal("toggle");
+                }
+            })
+            }
+        };
+
+        function DeletePopup(id) {
+
+            if (id) {
+                $.ajax({
+                    url: '/Roles/Delete/' + id,
+                    cache: false
+                }).done(function (response) {
+                    if (response == "Admin") {
+                        alert("L'administrateur ne peut être supprimer");
+                        return;
+                    } else {
+                        $("#modal-lg").html(response);
+                        $("#modal-lg").modal("toggle");
+                    }
+                });
+            }
+        };
+
+        function deletion(id) {
+            $.ajax({
+                type: "POST",
+                url: '/Roles/DeleteConfirmed/' + id,
+                data: {
+                    id: id
+                },
+                cache: false
+            }).done(function (response) {
+                if (response == "OK") {
+                    $("#modal-lg").modal("hide");
+                    getRoles();
+                    document.getElementById("error").style.display = "none";
+                }
+                else {
+                    $("#error").text(response);
+                    //document.getElementById("Libelle").focus();
+                    document.getElementById("error").style.display = "block";
+                    return;
+                }
+            });
+        }
+
+        function getRoles() {
+
+            $.ajax({
+                url: '@Url.Action("Read")',
+                cache: false,
+                success: function (data) {
+                   $("#example2").html(data);
+                }
+            })
+        };
+
+        function OnSuccess(data) {
+            if (data == "OK") {
+                document.getElementById("error").style.display = "none";
+                $("#modal-xl").modal("hide");
+                getRoles();
+            } else {
+                $("#error").text(data);
+                document.getElementById("error").innerHTML = data
+                document.getElementById("Libelle").focus();
+                document.getElementById("error").style.display = "block";
+                return;
+            }
+        }
+    </script>
+}
+

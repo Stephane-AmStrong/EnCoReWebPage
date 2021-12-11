@@ -1,0 +1,93 @@
+﻿@model EnCoReWebPage.Entities.Utilisateur
+
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            @if (Model.Actif)
+            {
+                <h4 class="modal-title">Désactiver un utilisateur</h4>
+            }
+            else
+            {
+                <h4 class="modal-title">Activer un utilisateur</h4>
+            }
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            @if (Model.Actif)
+            {
+                <p>Etês vous sûr de vouloir désactiver cet utilisateur ?</p>
+            }
+            else
+            {
+                <p>Etês vous sûr de vouloir activer cet utilisateur ?</p>
+            }
+
+            <div class="form-group">
+                @if (!string.IsNullOrWhiteSpace(Model.Photo))
+                {
+                    <img src="@Url.Content(Model.Photo)" width="150" />
+                }
+                else
+                {
+                    <img src="~/images/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                }
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Nom")
+                @Html.TextBoxFor(model => model.Nom, null, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Prénoms")
+                @Html.TextBoxFor(model => model.Prenoms, null, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Email")
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Titre", disabled = "disabled" })
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Login")
+                @Html.TextBoxFor(model => model.Login, new { @class = "form-control", placeholder = "Titre", disabled = "disabled" })
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Apropos")
+                @Html.TextBoxFor(model => model.Apropos, new { @class = "form-control", placeholder = "Titre", disabled = "disabled" })
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Blog")
+                @Html.TextBoxFor(model => model.Blog, new { @class = "form-control", placeholder = "Titre", disabled = "disabled" })
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Actif")
+                @Html.TextBoxFor(model => model.Actif, new { @class = "form-control", placeholder = "Titre", disabled = "disabled" })
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Role")
+                @Html.TextBoxFor(model => model.Role.Nom, new { @class = "form-control", placeholder = "Titre", disabled = "disabled" })
+            </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+            @if (Model.Actif)
+            {
+                <button type="button" class="btn btn-danger" onclick="deactivation('@Model.Id')">Désactiver</button>
+            }
+            else
+            {
+                <button type="button" class="btn btn-danger" onclick="deactivation('@Model.Id')">Activer</button>
+            }
+        </div>
+    </div>
+    <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->

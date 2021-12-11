@@ -1,0 +1,53 @@
+﻿<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Ajouter un role</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        @using (Ajax.BeginForm("Save", "Roles", new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccess" }))
+        {
+            @Html.Hidden("id", (string)ViewBag.Id)
+
+            <div class="modal-body">
+            <!-- form start -->
+
+                <div class="form-group">
+                    @Html.Label("Nom")
+                    @Html.TextBox("Nom", (string)ViewBag.Nom, new { @class = "form-control", placeholder = "Nom" })
+                    <b id="error" style="color:red; display:none"></b>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Article")
+                    @Html.CheckBox("Article", (bool)ViewBag.Article, new { @class = "form-control", placeholder = "Article" })
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Categorie")
+                    @Html.CheckBox("Categorie", (bool)ViewBag.Categorie, new { @class = "form-control", placeholder = "Categorie" })
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Role")
+                    @Html.CheckBox("Role", (bool)ViewBag.Role, new { @class = "form-control", placeholder = "Role" })
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Utilisateur")
+                    @Html.CheckBox("Utilisateur", (bool)ViewBag.Utilisateur, new { @class = "form-control", placeholder = "Article" })
+                </div>
+
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+            </div>
+        }
+
+    </div>
+    <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->

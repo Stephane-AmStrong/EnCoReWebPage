@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "Nos publications";
+    EnCoReWebPage.Entities.DB_BlogEnCoReEntities db = new EnCoReWebPage.Entities.DB_BlogEnCoReEntities();
+}
+
+<!--Page Title-->
+<section class="page-banner">
+    <div class="image-layer" style="background-image:url(/images/background/banner-image-5.jpg);"></div>
+
+    <div class="banner-inner">
+        <div class="auto-container">
+            <div class="inner-container clearfix">
+                <h1 id="pageName">Nos publications</h1>
+                <div class="page-nav">
+                    <ul class="bread-crumb clearfix">
+                        <li><a href="~/Home/Index">Accueil</a></li>
+                        <li class="active" id="pageName1">Nos publications</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="sidebar-page-container">
+    <div class="auto-container">
+        <div class="row clearfix">
+
+            <!--Content Side-->
+            <div class="content-side col-lg-8 col-md-12 col-sm-12">
+                <div class="content-inner" id="blogtab">
+
+                </div>
+            </div>
+
+            @*@if (db.Articles.Count(a => a.Valider) > 0)
+            {
+                @Html.Action("SideBar", "Home")
+            }*@
+
+            @Html.Action("SideBar", "Home")
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+            $("#menuBlogs").attr("class", "current");
+
+            Refresh();
+        });
+
+        var categorie = "";
+        
+        function Refresh(id_categorie, lib_categorie, id_tag) {
+            //event.preventDefault();
+            
+            var rech = $("#rech").val();
+
+            if (id_categorie != null) {
+                $("#" + categorie).attr("class", "");
+                $("#" + id_categorie).attr("class", "current");
+
+                categorie = id_categorie;
+
+                $("#pageName").text(lib_categorie);
+                $("#pageName1").text(lib_categorie);
+            }
+            
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("ReadArticles", "Home")",
+                data: {
+                    id_categorie: id_categorie,
+                    id_tag: id_tag,
+                    rech: rech
+                },
+                cache: false,
+                success: function (data) {
+                    $("#blogtab").html(data);
+                }
+            })
+        };
+    </script>
+}

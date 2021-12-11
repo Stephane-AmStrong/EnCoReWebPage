@@ -1,0 +1,92 @@
+﻿@model IEnumerable<EnCoReWebPage.Entities.Utilisateur>
+
+<thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Photo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nom)
+            @Html.DisplayNameFor(model => model.Prenoms)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Login)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Blog)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Apropos)
+        </th>
+        
+        <th>
+            Role
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Actif)
+        </th>
+        <th></th>
+    </tr>
+</thead>
+<tbody id="example2body">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @if (!string.IsNullOrWhiteSpace(item.Photo))
+                {
+                    <img src="@Url.Content(item.Photo)" width="150" />
+                }
+                else
+                {
+                    <img src="~/images/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+                @Html.DisplayFor(modelItem => item.Prenoms)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Login)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Blog)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Apropos)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Role.Nom)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Actif)
+            </td>
+            
+            <td>
+                <a href="#" onclick="OpenPopup('@item.Id')">Modifier</a>
+                @if (item.Role.Nom!="Admin")
+                {
+                    <span>|</span> <a href="#" onclick="DeletePopup('@item.Id')">Supprimer</a>
+                }
+
+                @*@Html.ActionLink("Edit", "Edit", null, new { id = @item.Id }, new { data_toggle = "modal", data_target = "#modal-update" })*@
+            </td>
+        </tr>
+    }
+</tbody>
+
+

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5bc835b3cdc24bc0bd858305601d58c9" Name="Diagram1" ZoomLevel="97">
+        <EntityTypeShape EntityType="DB_BlogEnCoReModel.Article" Width="1.5" PointX="5" PointY="0.625" />
+        <EntityTypeShape EntityType="DB_BlogEnCoReModel.ArticleTag" Width="1.5" PointX="7.25" PointY="0.5" />
+        <EntityTypeShape EntityType="DB_BlogEnCoReModel.Category" Width="1.5" PointX="0.875" PointY="4.625" />
+        <EntityTypeShape EntityType="DB_BlogEnCoReModel.Commentaire" Width="1.5" PointX="7.25" PointY="3.25" />
+        <EntityTypeShape EntityType="DB_BlogEnCoReModel.Role" Width="1.5" PointX="0.5" PointY="0.625" />
+        <EntityTypeShape EntityType="DB_BlogEnCoReModel.Tag" Width="1.5" PointX="9.875" PointY="0.5" />
+        <EntityTypeShape EntityType="DB_BlogEnCoReModel.Utilisateur" Width="1.5" PointX="2.75" PointY="0.625" />
+        <EntityTypeShape EntityType="DB_BlogEnCoReModel.PasswordRequest" Width="1.5" PointX="7.5" PointY="7.5" />
+        <AssociationConnector Association="DB_BlogEnCoReModel.FK_Article_Categorie" />
+        <AssociationConnector Association="DB_BlogEnCoReModel.FK_Article_Utilisateur" />
+        <AssociationConnector Association="DB_BlogEnCoReModel.FK_ArticleArticle_Tag" />
+        <AssociationConnector Association="DB_BlogEnCoReModel.FK_Commentaire_Article" />
+        <AssociationConnector Association="DB_BlogEnCoReModel.FK_TagArticle_Tag" />
+        <AssociationConnector Association="DB_BlogEnCoReModel.FK_Utilisateur_Role" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

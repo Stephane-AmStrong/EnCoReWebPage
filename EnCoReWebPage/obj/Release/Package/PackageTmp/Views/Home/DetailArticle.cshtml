@@ -1,0 +1,272 @@
+﻿@model EnCoReWebPage.Entities.Article
+@using EnCoReWebPage.App_Classes;
+
+@{
+    ViewBag.Title = Model.Titre;
+
+    EnCoReWebPage.Entities.DB_BlogEnCoReEntities db = new EnCoReWebPage.Entities.DB_BlogEnCoReEntities();
+    System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("fr-FR");
+    var comments = db.Commentaires.Where(p => p.ArticleId == Model.Id).ToList();
+    var user = Model.Utilisateur;
+
+    ViewBag.og_title = Model.Titre;
+    ViewBag.og_image = Request.Url.Scheme + "://" + Request.Url.Authority + Url.Content(Model.Image);
+    ViewBag.og_description = Model.Titre;
+    ViewBag.og_url = Request.Url.ToString();
+
+    var link = Uri.EscapeUriString(Request.Url.ToString());
+
+    string facebook_link = "https://www.facebook.com/sharer/sharer.php?u=" + link;
+    string twitter_link = "https://twitter.com/home?status=" + link;
+    //string google_link = "https://plus.google.com/share?url=" + link;
+    string linkin_link = "https://www.linkedin.com/shareArticle?mini=true&url=" + link + "&title=&summary=&source=";
+
+    var precedent = db.Articles.Where(p => p.Parution < Model.Parution).OrderByDescending(p => p.Parution).FirstOrDefault();
+    var suivant = db.Articles.Where(p => p.Parution > Model.Parution).FirstOrDefault();
+}
+
+
+<!--Page Title-->
+<section class="blog-banner">
+    <div class="image-layer" style="background-image:url(/images/background/banner-image-6.jpg);"></div>
+
+    <div class="banner-inner">
+        <div class="auto-container">
+            <div class="inner-container clearfix">
+                <div class="meta-info clearfix">
+                    <a href="#"><span class="fa fa-folder"></span>@Model.Category.Libelle</a> &ensp;/&ensp;
+                    <a href="#"><span class="fa fa-comment"></span>@comments.Count.ToString().PadLeft(2, '0') commentaires</a>
+                </div>
+                <h1>@Model.Titre</h1>
+                <div class="author-info">
+                    <figure class="image">
+                        @if (!string.IsNullOrWhiteSpace(user.Photo))
+                        {
+                            <img src="@Url.Content(user.Photo)" alt="@user.Prenoms @user.Nom">
+                        }
+                        else
+                        {
+                            <img src="~/images/resource/author-thumb-5.jpg" alt="">
+                        }
+                    </figure>
+                    <h6>Par @user.Prenoms @user.Nom</h6>
+                </div>
+                <div class="other-info clearfix">
+                    <div class="date"><span>@Model.Parution.ToString("dd.MM.yyyy", culture)</span></div>
+                    <div class="tags"><a href="#">Certificates, Drinks & Food, Free Style</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="sidebar-page-container">
+    <div class="auto-container">
+        <div class="row clearfix">
+
+            <!--Content Side-->
+            <div class="content-side col-lg-8 col-md-12 col-sm-12">
+                <div class="content-inner">
+                    <div class="single-post">
+                        <div class="post-details">
+                            <div class="main-image-box">
+                                <figure class="image"><img src="@Url.Content(Model.Image)" alt="@Model.Titre"></figure>
+                            </div>
+                            @Html.Raw(Model.Libelle)
+                        </div>
+
+                        <div class="share-post">
+                            <strong>Partagez cet article avec vos amis</strong>
+                            <ul class="links clearfix">
+                                <li class="facebook"><a href="@facebook_link"><span class="icon fab fa-facebook-f"></span><span class="txt">Facebook</span></a></li>
+                                <li class="twitter"><a href="@twitter_link"><span class="icon fab fa-twitter"></span><span class="txt">Twiter</span></a></li>
+                                <li class="linkedin"><a href="@linkin_link"><span class="icon fab fa-linkedin-in"></span><span class="txt">Linkedin</span></a></li>
+                            </ul>
+                        </div>
+
+                        <div class="author-box">
+                            <div class="inner-box">
+                                <figure class="thumb">
+                                    @if (!string.IsNullOrWhiteSpace(user.Photo))
+                                    {
+                                        <img src="@Url.Content(user.Photo)" alt="@user.Prenoms @user.Nom">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/images/resource/author-image.jpg" alt="">
+                                    }
+                                </figure>
+                                <h4>@user.Prenoms @user.Nom, <span>@user.Role.Nom</span></h4>
+
+                                @if (!string.IsNullOrWhiteSpace(user.Blog))
+                                {
+                                    <div class="link"><a href="@user.Blog">Visitez: @user.Blog </a> </div>
+                                }
+
+                                <div class="text">@user.Apropos</div>
+                            </div>
+                        </div>
+
+                        <div class="post-controls">
+                            <div class="inner clearfix">
+                                @if (precedent != null)
+                                {
+                                    <div class="prev-post">
+                                        <a href="~/Home/DetailArticle/@precedent.Id">
+                                            <span class="icon flaticon-back"></span>
+                                            <span class="txt">@precedent.Titre</span>
+                                        </a>
+                                    </div>
+                                }
+                                @if (suivant != null)
+                                {
+                                    <div class="next-post">
+                                        <a href="~/Home/DetailArticle/@suivant.Id">
+                                            <span class="icon flaticon-next"></span>
+                                            <span class="txt">@suivant.Titre</span>
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="comments-area" id="RefrechComments">
+
+                        </div>
+
+                        <div class="leave-comments">
+                            <div class="group-title">
+                                <h2>Laisser un commentaire</h2>
+                                <div class="instruction">Votre Email ne sera pas publié. * champ obligatoire</div>
+                            </div>
+
+                            <div class="default-form comment-form">
+                                @using (Ajax.BeginForm("PostComment", "Articles", new AjaxOptions { OnBegin = "PostCommentBegin", OnComplete = "PostCommentComplete", OnFailure = "PostCommentFailure" }))
+                                {
+                                    @Html.Hidden("id", Model.Id)
+
+                                    <div class="row clearfix">
+
+                                        <div class="col-md-12 col-sm-12 form-group">
+                                            <textarea name="message" id="message" placeholder="Votre commentaire*" required=""></textarea>
+                                        </div>
+
+                                        <div class="col-md-6 col-sm-12 form-group">
+                                            <input type="text" name="nom" id="nom" placeholder="Nom & prénoms*"  required="" >
+                                        </div>
+
+                                        <div class="col-md-6 col-sm-12 form-group">
+                                            <input type="email" name="email" id="email" placeholder="Email*"  required="" >
+                                        </div>
+
+                                        <div class="col-md-12 col-sm-12 form-group">
+                                            <button type="submit" class="theme-btn btn-style-one"><span class="btn-title">Publier</span></button>
+                                        </div>
+                                    </div>
+
+                                }
+                            </div>
+                        </div>
+
+                        <div class="related-posts">
+                            <div class="group-title">
+                                <h2>Articles similaires</h2>
+                            </div>
+                            <div class="row clearfix">
+                                <!--News Block-->
+                                @foreach (var item in db.Articles.Where(p => p.Id != Model.Id && p.CategorieId == Model.CategorieId).ToList())
+                                {
+                                    <div class="news-block-five col-md-6 col-sm-12">
+                                        <div class="inner-box">
+                                            <div class="image-box">
+                                                <figure class="image">
+                                                    <img style="width:370px; height:240px" src="@Url.Content(item.Image)" alt="@item.Titre" width="370" height="240">
+
+                                                </figure>
+                                                <div class="date"><span>@item.Parution.ToString("dd.MM.yyyy", culture)</span></div>
+                                                <div class="hover-box">
+                                                    @*<div class="more-link"><a href="~/Home/DetailArticle/@item.Id">Voir plus</a></div>*@
+                                                    <div class="more-link">@Html.ActionLink("Voir plus", "DetailArticle", "Home", new { id = item.Id }, null)</div>
+                                                </div>
+                                            </div>
+                                            <div class="lower-box">
+                                                <div class="upper-info">
+                                                    <h4><a href="~/Home/DetailArticle/@item.Id">@item.Titre.Truncate(31)</a></h4>
+                                                    <div class="cat-info">
+                                                        <a href="#"><span class="fa fa-folder"></span>@item.Category.Libelle</a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="meta-info clearfix">
+                                                    <div class="author-info clearfix">
+                                                        <div class="author-icon"><span class="flaticon-user-3"></span></div>
+                                                        <div class="author-title">Par @item.Utilisateur.Prenoms @item.Utilisateur.Nom</div>
+                                                    </div>
+                                                    <div class="comments-info">
+                                                        <a href="#"><span class="fa fa-comment"></span> @item.Commentaires.Count().ToString().PadLeft(2, '0')</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!--Sidebar Side-->
+            @Html.Action("SideBar", "Home")
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#menuBlogs").attr("class", "current");
+            GetListComment();
+        });
+
+        function GetListComment() {
+            $.ajax({
+                url: '/Home/ShowComments',
+                data: {
+                    idArticle: "@Model.Id"
+                },
+                success: function (data) {
+                    $("#RefrechComments").html(data);
+                },
+                error: function (ex) {
+                    alert(ex.message);
+                }
+            });
+        }
+
+        function PostCommentBegin() {
+            $(':submit', this).attr('disabled', 'disabled');
+        }
+
+        function PostCommentComplete(data) {
+            alert("Votre commentaire a été enregistré.");
+
+            $("#nom").val("");
+            $("#message").val("");
+            $("#email").val("");
+            $(':submit', this).removeAttr('disabled');
+
+            GetListComment();
+        }
+
+        function PostCommentFailure() {
+            alert("Une erreur est survenue aucours du traitement. Veuillez réessayer");
+            $(':submit', this).removeAttr('disabled');
+        }
+    </script>
+}

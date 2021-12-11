@@ -1,0 +1,82 @@
+﻿@model EnCoReWebPage.Entities.Role
+
+<div class="modal-dialog modal-xl">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Modifier un role</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        @using (Ajax.BeginForm("Edit", "Roles", new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccess" }))
+        {
+            <div class="modal-body">
+
+                @*@Html.AntiForgeryToken()*@
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.Label("Nom")
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.TextBox("Nom" , Model.Nom, new { @class = "form-control", placeholder = "Nom" })
+                            @Html.ValidationMessage("Nom", "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.Label("Article")
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.CheckBox("Article", false, new { @class = "form-control", placeholder = "Article" })
+                            @Html.ValidationMessage("Article", "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.Label("Categorie")
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.CheckBox("Categorie", false, new { @class = "form-control", placeholder = "Categorie" })
+                            @Html.ValidationMessage("Categorie", "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.Label("Role")
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.CheckBox("Role", false, new { @class = "form-control", placeholder = "Role" })
+                            @Html.ValidationMessage("Role", "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.Label("Utilisateur")
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.CheckBox("Utilisateur", false, new { @class = "form-control", placeholder = "Article" })
+                            @Html.ValidationMessage("Utilisateur", "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+            </div>
+        }
+
+    </div>
+    <!-- /.modal-content -->
+</div>

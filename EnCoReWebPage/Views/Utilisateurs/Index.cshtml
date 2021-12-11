@@ -1,0 +1,145 @@
+﻿@{
+    ViewBag.Title = "Utilisateurs";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Liste des utilisateurs</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <button type="button" class="btn btn-primary" onclick="OpenPopup()">
+                            Ajouter un utilisateur
+                        </button><br /><br />
+                        <table id="example1" class="table table-bordered table-hover">
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+<div class="modal fade" id="modal-lg">
+
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="modal-xl">
+
+</div>
+
+<!-- /.modal -->
+
+
+@section Scripts {
+    <script src="~/Scripts/tinymce/tiny_mce.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            getUtilisateurs();
+        });
+
+        function OpenPopup(idUser) {
+
+            if (idUser == null) {
+                $.ajax({
+                    url: '@Url.Action("Form")',
+                    cache: false,
+                    success: function (response) {
+                        $("#modal-xl").html(response);
+                        $("#modal-xl").modal("toggle");
+                    }
+                })
+            } else {
+                //Url.Action("GetByList", "Listing", new { name = "John", contact = "calgary, vancouver" })
+                //Url.Action("Display", "Customer")?uname=' + firstname + '&name=' + username;
+                $.ajax({
+                    url: '@Url.Action("Form", "Utilisateurs")?id=' + idUser,
+                    cache: false,
+
+                }).done(function (response) {
+                        $("#modal-xl").html(response);
+                        $("#modal-xl").modal("toggle");
+                });
+            }
+        };
+
+        function DisablePopup(id) {
+
+            if (id) {
+                $.ajax({
+                    url: '/Utilisateurs/Disable/' + id,
+                    cache: false,
+                    success: function (data) {
+                        $("#modal-lg").html(data);
+                        $("#modal-lg").modal("toggle");
+                    }
+                })
+            }
+        };
+
+        function deactivation(id) {
+            $.ajax({
+                type: "POST",
+                url: '/Utilisateurs/DisableConfirmed/' + id,
+                data: {
+                    id: id
+                },
+                cache: false
+            }).done(function (response) {
+                if (response == "OK") {
+                    $("#modal-lg").modal("hide");
+                    getUtilisateurs();
+                    document.getElementById("errorMessage").style.display = "none";
+                }
+                else {
+                    $("#errorMessage").text(response);
+                    //document.getElementById("Libelle").focus();
+                    document.getElementById("errorMessage").style.display = "block";
+                    return;
+                }
+            });
+        }
+
+        function getUtilisateurs() {
+            $.ajax({
+                url: '@Url.Action("Read")',
+                cache: false,
+                success: function (data) {
+                   $("#example1").html(data);
+                }
+            })
+        };
+
+        function OnSuccess(response) {
+
+            if (response == "OK") {
+                document.getElementById("errorMessage").style.display = "none";
+                $("#modal-xl").modal("hide");
+                getUtilisateurs();
+            } else {
+                $("#errorMessage").text(response);
+                document.getElementById("errorMessage").innerHTML = response
+                document.getElementById("errorMessage").style.display = "block";
+                return;
+            }
+        };
+
+
+    </script>
+}

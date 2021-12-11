@@ -1,0 +1,82 @@
+﻿@model EnCoReWebPage.App_Classes.UserVM
+
+<div class="modal-dialog modal-xl">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Editer mon profil</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        @using (Ajax.BeginForm("SaveMyProfile", "Utilisateurs", new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccess" }))
+        {
+            @Html.Hidden("id", (string)ViewBag.Id)
+
+            <div class="modal-body">
+                <!-- form start -->
+
+                <div class="form-group">
+
+                    <label>Photo (Taille recommandée 370x240)</label>
+                    @if (Model == null || Model.Photo == null)
+                    {
+                        <output id="images"></output><br />
+                        <input type="file" name="file" id="file" />
+                    }
+                    else
+                    {
+                        <output id="imagesn"><img src="@Url.Content(Model.Photo)" width="150" /></output><br />
+                        <input type="file" name="file" id="filen" />
+                    }
+
+                    @Html.ValidationMessage("Photo", "", new { @class = "text-danger" })
+                </div>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nom)
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Nom, new { @class = "form-control", placeholder = "Nom" })
+                        @Html.ValidationMessageFor(model => model.Nom, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Prenoms)
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Prenoms, new { @class = "form-control", placeholder = "Prénoms" })
+                        @Html.ValidationMessageFor(model => model.Prenoms, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Blog)
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Blog, new { @class = "form-control", placeholder = "Blog" })
+                        @Html.ValidationMessageFor(model => model.Blog, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Apropos)
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Apropos, new { @class = "form-control", placeholder = "Apropos" })
+                        @Html.ValidationMessageFor(model => model.Apropos, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+            </div>
+        }
+
+    </div>
+    <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->

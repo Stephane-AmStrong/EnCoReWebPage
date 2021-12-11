@@ -1,0 +1,52 @@
+﻿@model IEnumerable<EnCoReWebPage.Entities.Role>
+
+<thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Article)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Categorie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Role_)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Utilisateur)
+        </th>
+        <th></th>
+    </tr>
+</thead>
+<tbody id="example2body">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Article)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categorie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role_)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Utilisateur)
+            </td>
+            <td>
+                <a href="#" onclick="OpenPopup('@item.Id')">Modifier</a> |
+                <a href="#" onclick="DeletePopup('@item.Id')">Supprimer</a>
+
+                @*@Html.ActionLink("Edit", "Edit", null, new { id = @item.Id }, new { data_toggle = "modal", data_target = "#modal-update" })*@
+            </td>
+        </tr>
+    }
+</tbody>
+
+

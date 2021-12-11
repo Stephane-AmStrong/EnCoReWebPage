@@ -1,0 +1,355 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Administration | EnCoRe</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/Scripts/AdminLTE/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/Scripts/AdminLTE/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/Scripts/AdminLTE/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <link rel="stylesheet" href="~/Scripts/AdminLTE/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="~/Scripts/AdminLTE/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="~/Scripts/AdminLTE/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Scripts/AdminLTE/dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="~/Scripts/AdminLTE/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="~/Scripts/AdminLTE/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="~/Scripts/AdminLTE/summernote/summernote-bs4.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="~/Home/Index" class="nav-link">Accueil</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="~/Home/Contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+
+            <!-- SEARCH FORM -->
+            <form class="form-inline ml-3">
+                <div class="input-group input-group-sm">
+                    <input class="form-control form-control-navbar" type="search" placeholder="Rechercher" aria-label="Rechercher">
+                    <div class="input-group-append">
+                        <button class="btn btn-navbar" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item dropdown user-menu">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                        @if (Session["UserPhoto"] != null)
+                        {
+                            <img src="@Url.Content(Session["UserPhoto"].ToString())" class="user-image img-circle elevation-2" alt="User Image">
+                        }
+                        else
+                        {
+                            <img src="~/images/user2-160x160.jpg" class="user-image img-circle elevation-2" alt="User Image">
+                        }
+                        <span class="d-none d-md-inline">@Session["UserNom"]</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <!-- User image -->
+                        <li class="user-header bg-primary">
+                            @if (Session["UserPhoto"] == null)
+                            {
+                                <img src="~/images/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                            }
+                            else
+                            {
+                                <img src="@Url.Content(Session["UserPhoto"].ToString())" class="img-circle elevation-2" alt="User Image">
+                            }
+
+                            <p>
+                                @Session["UserNom"]
+                            </p>
+                        </li>
+
+                        <li class="user-footer">
+                            @Html.ActionLink("Mon profil", "Profil", new { controller = "Utilisateurs" }, new { @class = "btn btn-default btn-flat" })
+                            <a href="~/Utilisateurs/Deconnexion" class="btn btn-default btn-flat float-right">Déconnection</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+                        <i class="fas fa-th-large"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="~/Home/Index" class="brand-link">
+                <img src="~/Scripts/AdminLTE/dist/img/AdminLTELogo.png" alt="EnCoRe Logo" class="brand-image img-circle elevation-3"
+                     style="opacity: .8">
+                <span class="brand-text font-weight-light">EnCoRe</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        @if (Session["UserPhoto"] != null)
+                        {
+                            <img src="@Url.Content(Session["UserPhoto"].ToString())" class="img-circle elevation-2" alt="User Image">
+                        }
+                        else
+                        {
+                            <img src="~/images/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        }
+                    </div>
+                    <div class="info">
+                        <a href="#" class="d-block">@Session["UserNom"]</a>
+                    </div>
+                </div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+                        @if ((bool)Session["RoleArticle"])
+                        {
+
+                            <li class="nav-item">
+                                <a href="~/Articles/Index" class="nav-link">
+                                    <i class="nav-icon fas fa-file"></i>
+                                    <p> Articles </p>
+                                </a>
+                            </li>
+
+                        }
+
+                        @if ((bool)Session["RoleCategorie"])
+                        {
+
+                            <li class="nav-item">
+                                <a href="~/Categories/Index" class="nav-link">
+                                    <i class="nav-icon fas fa-bookmark"></i>
+                                    <p> Catégories </p>
+                                </a>
+
+                                @*@Html.ActionLink(" ", "Index", "Categories", new { @class = "nav-link" })*@
+
+                            </li>
+
+                        }
+                        
+                        @if ((bool)Session["RoleValider_Commentaire"])
+                        {
+
+                            <li class="nav-item">
+                                <a href="~/Articles/UnreadComments" class="nav-link">
+                                    <i class="nav-icon fas fa-bookmark"></i>
+                                    <p>Commentaires à valider</p>
+                                </a>
+
+                                @*@Html.ActionLink(" ", "Index", "Categories", new { @class = "nav-link" })*@
+
+                            </li>
+
+                        }
+
+                        @if ((bool)Session["RoleRole"])
+                        {
+
+                            <li class="nav-item">
+                                <a href="~/Roles/Index" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p> Roles </p>
+                                </a>
+                            </li>
+
+                        }
+
+
+                        @if ((bool)Session["RoleUtilisateur"])
+                        {
+
+                            <li class="nav-item">
+                                <a href="~/Utilisateurs/Index" class="nav-link">
+                                    <i class="nav-icon fas fa-users" aria-hidden="true"></i>
+                                    <p> Utilisateurs </p>
+                                </a>
+                            </li>
+
+                        }
+
+                        @*<li class="nav-item">
+            <a href="~/Tags/Index" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p> Tags </p>
+            </a>
+        </li>*@
+
+
+                        <!--
+
+    <li class="nav-header">EXAMPLES</li>
+    <li class="nav-item">
+        <a href="pages/calendar.html" class="nav-link">
+            <i class="nav-icon far fa-calendar-alt"></i>
+            <p>
+                Calendar
+                <span class="badge badge-info right">2</span>
+            </p>
+        </a>
+    </li>
+    -->
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0 text-dark">@ViewBag.Title</h1>
+                        </div><!-- /.col -->
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                @if (@ViewBag.Title != "Tableau de bord" && string.IsNullOrWhiteSpace(ViewBag.OnArticlePage))
+                                {
+                                    <li class="breadcrumb-item">@Html.ActionLink("Tableau de bord", "Dashboard", "Utilisateurs")</li>
+                                    <li class="breadcrumb-item active">@ViewBag.Title</li>
+                                }
+                                else if (@ViewBag.Title != "Tableau de bord" && !string.IsNullOrWhiteSpace(ViewBag.OnArticlePage) && ViewBag.OnArticlePage == "true")
+                                {
+                                    <li class="breadcrumb-item">@Html.ActionLink("Tableau de bord", "Dashboard", "Utilisateurs")</li>
+                                    <li class="breadcrumb-item">@Html.ActionLink("Articles", "Index", "Articles")</li>
+                                    <li class="breadcrumb-item active">@ViewBag.Title</li>
+                                }
+                                else if (ViewBag.OnArticlePage == "true")
+                                {
+                                    <li class="breadcrumb-item active">@ViewBag.Title</li>
+
+                                }
+
+                            </ol>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            @RenderBody()
+
+
+        </div>
+        <!-- /.content-wrapper -->
+        <footer class="main-footer">
+            <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+            All rights reserved.
+            <div class="float-right d-none d-sm-inline-block">
+                <b>Version</b> 3.0.5
+            </div>
+        </footer>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+    @*@Scripts.Render("~/adminBundles/js");*@
+
+    <!-- jQuery -->
+    <script src="~/Scripts/AdminLTE/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="~/Scripts/AdminLTE/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>$.widget.bridge('uibutton', $.ui.button)</script>
+    <!-- Bootstrap 4 -->
+    <script src="~/Scripts/AdminLTE/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables -->
+    <script src="~/Scripts/AdminLTE/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/AdminLTE/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Scripts/AdminLTE/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/Scripts/AdminLTE/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <!-- ChartJS -->
+    <script src="~/Scripts/AdminLTE/chart.js/Chart.min.js"></script>
+    <!-- Sparkline -->
+    <script src="~/Scripts/AdminLTE/sparklines/sparkline.js"></script>
+    <!-- JQVMap -->
+    <script src="~/Scripts/AdminLTE/jqvmap/jquery.vmap.min.js"></script>
+    <script src="~/Scripts/AdminLTE/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="~/Scripts/AdminLTE/jquery-knob/jquery.knob.min.js"></script>
+    <!-- daterangepicker -->
+    <script src="~/Scripts/AdminLTE/moment/moment.min.js"></script>
+    <script src="~/Scripts/AdminLTE/daterangepicker/daterangepicker.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="~/Scripts/AdminLTE/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Summernote -->
+    <script src="~/Scripts/AdminLTE/summernote/summernote-bs4.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="~/Scripts/AdminLTE/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Scripts/AdminLTE/dist/js/adminlte.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="~/Scripts/AdminLTE/dist/js/pages/dashboard.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/Scripts/AdminLTE/dist/js/demo.js"></script>
+
+    @*<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>*@
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <!-- page script -->
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

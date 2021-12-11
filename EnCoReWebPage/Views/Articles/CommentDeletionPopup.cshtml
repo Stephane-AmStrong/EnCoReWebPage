@@ -1,0 +1,33 @@
+﻿@model EnCoReWebPage.Entities.Commentaire
+
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Supprimer un commentaire</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>Etês vous sûr de vouloir supprimer ce commentaire ?</p>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Libellé")
+            @Html.TextBoxFor(model => model.Libelle, new { @class = "form-control", placeholder = "Libelle", disabled = "disabled" })
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Auteur")
+            @Html.TextBoxFor(model => model.CommentateurNomPrenoms, null, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
+        </div>
+
+        <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-danger" onclick="AutorizeOrDeleteComment('@Model.Id','Supprimer')">Supprimer</button>
+
+        </div>
+    </div>
+    <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->

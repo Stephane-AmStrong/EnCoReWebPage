@@ -1,0 +1,86 @@
+﻿@model IEnumerable<EnCoReWebPage.Entities.Utilisateur>
+
+<thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Photo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nom)
+            @Html.DisplayNameFor(model => model.Prenoms)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        
+        <th>
+            Role
+        </th>
+        
+        <th>
+            @Html.DisplayName("Etat")
+        </th>
+        <th></th>
+    </tr>
+</thead>
+<tbody id="example2body">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @if (!string.IsNullOrWhiteSpace(item.Photo))
+                {
+                    <img src="@Url.Content(item.Photo)" width="150" />
+                }
+                else
+                {
+                    <img src="~/images/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+                @Html.DisplayFor(modelItem => item.Prenoms)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Role.Nom)
+            </td>
+            
+            <td>
+                @if (item.Actif)
+                {
+                    <b style="color:limegreen;">Actif</b>
+                }
+                else
+                {
+                    <b style="color:red;">Inactif</b>
+                }
+            </td>
+            
+            <td>
+                @if (item.Role.Nom != "Admin")
+                {
+                    <a href="#" onclick="OpenPopup('@item.Id')">Modifier</a>
+                    <span> | </span>
+                    if (item.Actif)
+                    {
+                        <a href="#" onclick="DisablePopup('@item.Id')">Désactiver</a>
+                    }
+                    else
+                    {
+                        <a href="#" onclick="DisablePopup('@item.Id')">Activer</a>
+                    }
+                }
+
+                @*@Html.ActionLink("Edit", "Edit", null, new { id = @item.Id }, new { data_toggle = "modal", data_target = "#modal-update" })*@
+            </td>
+        </tr>
+    }
+</tbody>
+
+

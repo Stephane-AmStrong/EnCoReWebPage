@@ -1,0 +1,28 @@
+﻿@model List<EnCoReWebPage.Entities.Commentaire>
+
+@{
+    System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("fr-FR");
+}
+
+<div class="group-title">
+    <h2>Commentaires <span>- @Model.Count.ToString().PadLeft(2, '0')</span></h2>
+</div>
+
+@foreach (var item in Model)
+{
+    <div class="comment-box">
+        <div class="comment">
+            <div class="author-thumb">
+                <figure class="thumb"><img src="~/images/resource/author-image-6.jpg" alt=""></figure>
+            </div>
+            <div class="info">
+                <span class="name">@item.CommentateurNomPrenoms,</span>
+                <span class="date">@item.Date.ToString("dd MMM yyyy", culture)</span>
+            </div>
+            <div class="text">@item.Libelle.</div>
+
+            @*<div class="reply-link"><a href="#">Reply</a></div>*@
+
+        </div>
+    </div>
+}

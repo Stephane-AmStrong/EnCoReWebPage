@@ -1,0 +1,67 @@
+﻿@model EnCoReWebPage.Entities.Utilisateur
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Utilisateur</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prenoms)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prenoms)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Apropos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Apropos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Blog)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Blog)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UtilisateurId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UtilisateurId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Role.Nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Role.Nom)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

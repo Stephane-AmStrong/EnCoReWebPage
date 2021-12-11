@@ -1,0 +1,100 @@
+﻿@model EnCoReWebPage.App_Classes.UserVM
+
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Ajouter un article</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        @using (Ajax.BeginForm("Save", "Utilisateurs", new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccess" }, new { enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="modal-body">
+                <b id="errorMessage" style="color:red; display:none"></b>
+
+                <div class="form-group">
+
+                    <label>Photo (Taille recommandée 370x240)</label>
+                    @if (Model == null || Model.Photo == null)
+                    {
+                        <output id="images"></output><br />
+                        <input type="file" name="file" id="file" accept="image/*" />
+                    }
+                    else
+                    {
+                        <output id="imagesn"><img src="@Url.Content(Model.Photo)" width="150" /></output><br />
+                        <input type="file" name="file" id="filen" />
+                    }
+
+                    @Html.ValidationMessage("Photo", "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nom)
+                    @Html.TextBoxFor(model => model.Nom, new { @class = "form-control", placeholder = "Nom" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Prenoms)
+                    @Html.TextBoxFor(model => model.Prenoms, new { @class = "form-control", placeholder = "Prénoms" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email)
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Email" })
+                </div>
+                            
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RoleId)
+                    @Html.DropDownList("RoleId", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+            </div>
+        }
+
+    </div>
+    <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+
+<script type="text/javascript">
+    function showimages(files) {
+        {
+            f = files[0];
+            var reader = new FileReader();
+            reader.onload = function (evt) {
+                $('#images').replaceWith('<output id="images"></output><br />')
+                var img = '<img src="' + evt.target.result + '"width="150px" />';
+                $('#images').append(img);
+            }
+            reader.readAsDataURL(f);
+        }
+    }
+    $('#file').change(function (evt) {
+        showimages(evt.target.files);
+    });
+
+    function showimagesn(files) {
+        {
+            f = files[0];
+            var reader = new FileReader();
+            reader.onload = function (evt) {
+                $('#imagesn').replaceWith('<output id="imagesn"></output><br />')
+                var img = '<img src="' + evt.target.result + '"width="150px" />';
+                $('#imagesn').append(img);
+            }
+            reader.readAsDataURL(f);
+        }
+    }
+    $('#filen').change(function (evt) {
+        showimagesn(evt.target.files);
+    });
+</script>

@@ -1,0 +1,153 @@
+﻿@model EnCoReWebPage.Entities.Category
+
+@{
+    ViewBag.Title = "Catégories";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Liste des catégories</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+
+                        <button type="button" class="btn btn-primary" onclick="OpenPopup()" @*data-toggle="modal" data-target="#modal-xl"*@>
+                            Ajouter une catégorie
+                        </button><br /><br />
+
+                        <table id="example1" class="table table-bordered table-striped">
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+<div class="modal fade" id="modal-lg">
+
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="modal-xl">
+
+</div>
+
+<!-- /.modal -->
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            Getcategorie();
+        });
+
+        function OpenPopup(id) {
+        
+            if (id == null) {
+                $.ajax({
+                    url: '@Url.Action("FormPartial")',
+                    cache: false,
+                    success: function (data) {
+                        $("#modal-xl").html(data);
+                        $("#modal-xl").modal("toggle");
+                    }
+                })
+            }
+            else {
+                $.ajax({
+                url: '/Categories/FormPartial/' + id,
+                cache: false,
+                success: function (data) {
+                    $("#modal-xl").html(data);
+                    $("#modal-xl").modal("toggle");
+                }
+            })
+            }
+        };
+        
+        function DeletePopup(id) {
+
+            if (id) {
+                $.ajax({
+                    url: '/Categories/Delete/' + id,
+                    //url: '@Url.Action("Delete")?id='id,
+                    cache: false,
+                    success: function (data) {
+                        $("#modal-lg").html(data);
+                        $("#modal-lg").modal("toggle");
+                    }
+                })
+            }
+        };
+        
+        function deletion(id) {
+
+            $.ajax({
+                type: "POST",
+                url: '/Categories/DeleteConfirmed/' + id,
+                data: {
+                    id: id
+                },
+                cache: false
+            }).done(function (response) {
+                if (response == "OK") {
+                    $("#modal-lg").modal("hide");
+                    Getcategorie();
+                    document.getElementById("error").style.display = "none";
+                }
+                else {
+                    $("#error").text(response);
+                    document.getElementById("Libelle").focus();
+                    document.getElementById("error").style.display = "block";
+                    return;
+                }
+            });
+        }
+
+        function Getcategorie() {
+
+            $.ajax({
+                url: '@Url.Action("Liste")',
+                cache: false,
+                success: function (data) {
+                   $("#example1").html(data);
+                }
+            })
+        };
+
+        //$("#Libelle").on("keypress", function () {
+        //    document.getElementById("error").style.display = "none";
+        //});
+
+        function OnSuccess(data) {
+
+            if (data == "OK") {
+                document.getElementById("error").style.display = "none";
+                $("#modal-xl").modal("hide");
+                Getcategorie();
+            }
+            else {
+                $("#error").text(data);
+                //document.getElementById("error").innerHTML = data
+                document.getElementById("Libelle").focus();
+                document.getElementById("error").style.display = "block";
+                return;
+            }
+        }
+    </script>
+}

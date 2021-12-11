@@ -1,0 +1,53 @@
+﻿@model List<EnCoReWebPage.App_Classes.ArticlesVM>
+@using EnCoReWebPage.App_Classes; 
+
+<div class="blog-posts">
+    <div class="row clearfix">
+        <!--News Block-->
+        @foreach (var item in Model)
+        {
+            <div class="news-block-five col-md-6 col-sm-12">
+                <div class="inner-box">
+                    <div class="image-box">
+                        <figure class="image">
+                            <img style="width:370px; height:240px" src="@Url.Content(item.Image)" alt="@item.Titre"/>
+                        </figure>
+                        <div class="date"><span>@item.Parution</span></div>
+                        <div class="hover-box">
+                            <div class="more-link"><a href="~/Home/DetailArticle/@item.Id">Voir plus</a></div>
+                        </div>
+                    </div>
+                    <div class="lower-box">
+                        <div class="upper-info">
+                            <h4><a href="~/Home/DetailArticle/@item.Id">@item.Titre.Truncate(31)</a></h4>
+                            <div class="cat-info">
+                                <a href="#"><span class="fa fa-folder"></span>@item.Categorie</a>
+                            </div>
+                        </div>
+
+                        <div class="meta-info clearfix">
+                            <div class="author-info clearfix">
+                                <div class="author-icon"><span class="flaticon-user-3"></span></div>
+                                <div class="author-title">Par @item.Auteur</div>
+                            </div>
+                            <div class="comments-info">
+                                <a href="#"><span class="fa fa-comment"></span> @item.NbrCommentaires</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+<!--Pagination-->
+<div class="pagination-box text-center">
+    <ul class="styled-pagination">
+        <li class="prev"><a href="#"><span class="icon flaticon-arrows-1"></span> Préc</a></li>
+        <li><a href="#" class="active">1</a></li>
+        <li><a href="#">2</a></li>
+        <li class="next"><a href="#">Suiv <span class="icon flaticon-right-2"></span></a></li>
+    </ul>
+</div>
+

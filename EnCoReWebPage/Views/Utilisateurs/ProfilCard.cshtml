@@ -1,0 +1,43 @@
+﻿@model EnCoReWebPage.Entities.Utilisateur
+
+<!-- Profile Image -->
+<div class="card card-primary card-outline">
+    <div class="card-body box-profile">
+        <div class="text-center">
+            @if (Session["UserPhoto"] != null)
+            {
+                <img src="@Url.Content(Session["UserPhoto"].ToString())" class="profile-user-img img-fluid img-circle" alt="User profile picture">
+            }
+            else
+            {
+                <img src="~/images/user2-160x160.jpg" class="profile-user-img img-fluid img-circle" alt="User profile picture">
+            }
+
+
+        </div>
+
+        <h3 class="profile-username text-center">@Session["UserNom"]</h3>
+
+        <p class="text-muted text-center"></p>
+
+        <ul class="list-group list-group-unbordered mb-3">
+            <li class="list-group-item">
+                <b>Email</b> <a class="float-right">@Model.Email</a>
+            </li>
+            <li class="list-group-item">
+                <b>Login</b> <a class="float-right">@Model.Login</a>
+            </li>
+            <li class="list-group-item">
+                <b>Blog</b> <a class="float-right">@Model.Blog</a>
+            </li>
+            <li class="list-group-item">
+                <b>Apropos</b> <a class="float-right">@Model.Apropos</a>
+            </li>
+        </ul>
+
+        <a onclick="OpenPopup('@Model.Id')" href="#" class="btn btn-primary"><b>Editer</b></a>
+        @*<a href="#"onclick="OpenPopup(@Model.Id)" class="btn btn-primary btn-block"><b>Editer</b></a>*@
+
+    </div>
+    <!-- /.card-body -->
+</div>

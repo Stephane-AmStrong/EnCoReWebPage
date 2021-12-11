@@ -1,0 +1,94 @@
+﻿@model EnCoReWebPage.Entities.Role
+
+<h2>Create</h2>
+
+<div class="modal-dialog modal-xl">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Extra Large Modal</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <!-- form start -->
+
+            @using (Ajax.BeginForm("Create", "Categories", new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccess" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>Role</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(modelItem => modelItem.Nom, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.Nom, "", new { @class = "form-control", placeholder = "Libellé" })
+                                @Html.ValidationMessageFor(model => model.Nom, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Article, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.Article)
+                                @Html.ValidationMessageFor(model => model.Article, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Categorie, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.Categorie)
+                                @Html.ValidationMessageFor(model => model.Categorie, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Role_, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.Role_)
+                                @Html.ValidationMessageFor(model => model.Role_, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Utilisateur, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.Utilisateur)
+                                @Html.ValidationMessageFor(model => model.Utilisateur, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+    </div>
+    <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

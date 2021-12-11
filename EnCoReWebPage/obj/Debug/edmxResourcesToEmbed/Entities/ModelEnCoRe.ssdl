@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_BlogEnCoReModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DB_BlogEnCoReModelStoreContainer">
+    <EntitySet Name="Articles" EntityType="DB_BlogEnCoReModel.Store.Articles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ArticleTags" EntityType="DB_BlogEnCoReModel.Store.ArticleTags" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Categories" EntityType="DB_BlogEnCoReModel.Store.Categories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Commentaires" EntityType="DB_BlogEnCoReModel.Store.Commentaires" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PasswordRequests" EntityType="DB_BlogEnCoReModel.Store.PasswordRequests" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Roles" EntityType="DB_BlogEnCoReModel.Store.Roles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tags" EntityType="DB_BlogEnCoReModel.Store.Tags" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Utilisateurs" EntityType="DB_BlogEnCoReModel.Store.Utilisateurs" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Article_Categorie" Association="DB_BlogEnCoReModel.Store.FK_Article_Categorie">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Article" EntitySet="Articles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Article_Utilisateur" Association="DB_BlogEnCoReModel.Store.FK_Article_Utilisateur">
+      <End Role="Utilisateur" EntitySet="Utilisateurs" />
+      <End Role="Article" EntitySet="Articles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ArticleArticle_Tag" Association="DB_BlogEnCoReModel.Store.FK_ArticleArticle_Tag">
+      <End Role="Article" EntitySet="Articles" />
+      <End Role="ArticleTag" EntitySet="ArticleTags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Commentaire_Article" Association="DB_BlogEnCoReModel.Store.FK_Commentaire_Article">
+      <End Role="Article" EntitySet="Articles" />
+      <End Role="Commentaire" EntitySet="Commentaires" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TagArticle_Tag" Association="DB_BlogEnCoReModel.Store.FK_TagArticle_Tag">
+      <End Role="Tag" EntitySet="Tags" />
+      <End Role="ArticleTag" EntitySet="ArticleTags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Utilisateur_Role" Association="DB_BlogEnCoReModel.Store.FK_Utilisateur_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="Utilisateur" EntitySet="Utilisateurs" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Articles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Image" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Titre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Parution" Type="datetime" Nullable="false" />
+    <Property Name="CategorieId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UtilisateurId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Valider" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ArticleTags">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ArticleId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TagId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Commentaires">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="CommentateurNomPrenoms" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CommentateurEmail" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Valider" Type="bit" Nullable="false" />
+    <Property Name="ArticleId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PasswordRequests">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="RequestDate" />
+      <PropertyRef Name="UtilisateurId" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="RequestDate" Type="datetime" Nullable="false" />
+    <Property Name="UtilisateurId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Article" Type="bit" Nullable="false" />
+    <Property Name="Categorie" Type="bit" Nullable="false" />
+    <Property Name="Role_" Type="bit" Nullable="false" />
+    <Property Name="Utilisateur" Type="bit" Nullable="false" />
+    <Property Name="Valider_Article" Type="bit" Nullable="false" />
+    <Property Name="Valider_Commentaire" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tags">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Utilisateurs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Nom" Type="nchar" Nullable="false" MaxLength="50" />
+    <Property Name="Prenoms" Type="nchar" Nullable="false" MaxLength="120" />
+    <Property Name="Photo" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Login" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="PWD" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Apropos" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Blog" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Actif" Type="bit" Nullable="false" />
+    <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UtilisateurId" Type="uniqueidentifier" Nullable="true" />
+  </EntityType>
+  <Association Name="FK_Article_Categorie">
+    <End Role="Category" Type="DB_BlogEnCoReModel.Store.Categories" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Article" Type="DB_BlogEnCoReModel.Store.Articles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Article">
+        <PropertyRef Name="CategorieId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Article_Utilisateur">
+    <End Role="Utilisateur" Type="DB_BlogEnCoReModel.Store.Utilisateurs" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Article" Type="DB_BlogEnCoReModel.Store.Articles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Utilisateur">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Article">
+        <PropertyRef Name="UtilisateurId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ArticleArticle_Tag">
+    <End Role="Article" Type="DB_BlogEnCoReModel.Store.Articles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ArticleTag" Type="DB_BlogEnCoReModel.Store.ArticleTags" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ArticleTag">
+        <PropertyRef Name="ArticleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Commentaire_Article">
+    <End Role="Article" Type="DB_BlogEnCoReModel.Store.Articles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Commentaire" Type="DB_BlogEnCoReModel.Store.Commentaires" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Commentaire">
+        <PropertyRef Name="ArticleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TagArticle_Tag">
+    <End Role="Tag" Type="DB_BlogEnCoReModel.Store.Tags" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ArticleTag" Type="DB_BlogEnCoReModel.Store.ArticleTags" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ArticleTag">
+        <PropertyRef Name="TagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Utilisateur_Role">
+    <End Role="Role" Type="DB_BlogEnCoReModel.Store.Roles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Utilisateur" Type="DB_BlogEnCoReModel.Store.Utilisateurs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Utilisateur">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

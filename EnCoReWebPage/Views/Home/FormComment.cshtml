@@ -1,0 +1,26 @@
+﻿@model EnCoReWebPage.Entities.Article
+
+@using (Ajax.BeginForm("PostComment", "Articles", new AjaxOptions { OnBegin = "PostCommentBegin", OnComplete = "PostCommentComplete", OnFailure = "PostCommentFailure" }))
+{
+    @Html.Hidden("id", Model.Id)
+
+    <div class="row clearfix">
+
+        <div class="col-md-12 col-sm-12 form-group">
+            <textarea name="message" id="message" placeholder="Votre commentaire*" required=""></textarea>
+        </div>
+
+        <div class="col-md-6 col-sm-12 form-group">
+            <input type="text" name="nom" id="nom" placeholder="Nom & prénoms*" required="">
+        </div>
+
+        <div class="col-md-6 col-sm-12 form-group">
+            <input type="email" name="email" id="email" placeholder="Email*" required="">
+        </div>
+
+        <div class="col-md-12 col-sm-12 form-group">
+            <button type="submit" class="theme-btn btn-style-one"><span class="btn-title">Publier</span></button>
+        </div>
+    </div>
+
+}

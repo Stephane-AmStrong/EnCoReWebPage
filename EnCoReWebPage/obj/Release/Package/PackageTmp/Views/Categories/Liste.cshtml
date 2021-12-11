@@ -1,0 +1,23 @@
+﻿@model List<EnCoReWebPage.Entities.Category>
+
+<thead>
+    <tr>
+        <th>Libellé</th>
+        <th>Actions</th>
+    </tr>
+</thead>
+<tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Libelle</td>
+            <td>
+                <a href="#" onclick="OpenPopup('@item.Id')">Modifier</a> |
+                <a href="#" onclick="DeletePopup('@item.Id')">Supprimer</a> 
+                @*@Html.ActionLink("Supprimer", "Delete", null, new { id = @item.Id }, new { data_toggle = "modal", data_target = "#modal-default" })*@
+            </td>
+        </tr>
+    }
+</tbody>
+
+

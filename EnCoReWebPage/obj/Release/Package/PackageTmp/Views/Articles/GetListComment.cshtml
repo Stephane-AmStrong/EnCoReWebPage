@@ -1,0 +1,37 @@
+﻿@model List<EnCoReWebPage.Entities.Commentaire>
+
+@{
+    System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("fr-FR");
+}
+
+<thead>
+    <tr>
+        <th>Date</th>
+        <th>Commentateurs</th>
+        <th>Libellé</th>
+        <th>Actions</th>
+    </tr>
+</thead>
+<tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            @* , Date, CommentateurNomPrenoms, CommentateurEmail, Libelle, Autorisé *@
+            <td>
+                @item.Date.ToString("dd-MM-yyyy", culture)
+            </td>
+            <td>
+                @item.CommentateurNomPrenoms,
+                @item.CommentateurEmail
+            </td>
+            <td>@item.Libelle.</td>
+            <td>
+                <a href="#" onclick="CommentDeletionPopup('@item.Id','Supprimer')">Supprimer</a> <br />
+                <a href="#" onclick="AutorizeOrDeleteComment('@item.Id','Autoriser')">Autoriser</a>
+                @*@Html.ActionLink("Autoriser", "AutorizeOrDeleteComment", "Articles", new { idComment = item.Id, action = "Autoriser" }, null)*@
+            </td>
+        </tr>
+    }
+</tbody>
+
+

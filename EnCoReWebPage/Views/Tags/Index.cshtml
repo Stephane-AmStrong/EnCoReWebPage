@@ -1,0 +1,153 @@
+﻿@model EnCoReWebPage.Entities.Tag
+
+@{
+    ViewBag.Title = "Liste des tags";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Liste des tags</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+
+                        <button type="button" class="btn btn-primary" onclick="OpenPopup()" @*data-toggle="modal" data-target="#modal-xl"*@>
+                            Ajouter une tag
+                        </button><br /><br />
+
+                        <table id="example1" class="table table-bordered table-striped">
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+<div class="modal fade" id="modal-default">
+
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="modal-xl">
+
+</div>
+
+<!-- /.modal -->
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            refresh();
+        });
+
+        function OpenPopup(id) {
+
+            if (id == null) {
+                $.ajax({
+                    url: '@Url.Action("Form")',
+                    cache: false,
+                    success: function (data) {
+                        $("#modal-xl").html(data);
+                        $("#modal-xl").modal("toggle");
+                    }
+                })
+            }
+            else {
+                $.ajax({
+                url: '/Tags/Form/' + id,
+                cache: false,
+                success: function (data) {
+                    $("#modal-xl").html(data);
+                    $("#modal-xl").modal("toggle");
+                }
+            })
+            }
+        };
+        
+        function DeletePopup(id) {
+
+            if (id) {
+                $.ajax({
+                    url: '/Tags/Delete/' + id,
+                    //url: '@Url.Action("Delete")?id='id,
+                    cache: false,
+                    success: function (data) {
+                        $("#modal-default").html(data);
+                        $("#modal-default").modal("toggle");
+                    }
+                })
+            }
+        };
+        
+        function deletion(id) {
+
+            $.ajax({
+                type: "POST",
+                url: '/Tags/DeleteConfirmed/' + id,
+                data: {
+                    id: id
+                },
+                cache: false
+            }).done(function (response) {
+                if (response == "OK") {
+                    $("#modal-default").modal("hide");
+                    refresh();
+                    document.getElementById("errorMessage").style.display = "none";
+                }
+                else {
+                    $("#errorMessage").text(response);
+                    document.getElementById("Libelle").focus();
+                    document.getElementById("errorMessage").style.display = "block";
+                    return;
+                }
+            });
+        }
+
+        function refresh() {
+
+            $.ajax({
+                url: '@Url.Action("Read")',
+                cache: false,
+                success: function (data) {
+                   $("#example1").html(data);
+                }
+            })
+        };
+
+        //$("#Libelle").on("keypress", function () {
+        //    document.getElementById("errorMessage").style.display = "none";
+        //});
+
+        function OnSuccess(data) {
+
+            if (data == "OK") {
+                document.getElementById("errorMessage").style.display = "none";
+                $("#modal-xl").modal("hide");
+                refresh();
+            }
+            else {
+                $("#errorMessage").text(data);
+                //document.getElementById("errorMessage").innerHTML = data
+                document.getElementById("Libelle").focus();
+                document.getElementById("errorMessage").style.display = "block";
+                return;
+            }
+        }
+    </script>
+}

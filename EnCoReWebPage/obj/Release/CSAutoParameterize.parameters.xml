@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DB_BlogEnCoReEntities-Web.config Connection String" description="DB_BlogEnCoReEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Entities.ModelEnCoRe.csdl|res://*/Entities.ModelEnCoRe.ssdl|res://*/Entities.ModelEnCoRe.msl;provider=System.Data.SqlClient;provider connection string=&quot;Data Source=SQL5034.site4now.net;Initial Catalog=DB_A3B47D_encore;User Id=DB_A3B47D_encore_admin;Password=encore1!;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Owner\\Desktop\\EnCoReWebPage\\EnCoReWebPage\\EnCoReWebPage\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DB_BlogEnCoReEntities']/@connectionString" />
+  </parameter>
+</parameters>
